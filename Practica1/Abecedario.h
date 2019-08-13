@@ -3,7 +3,7 @@
 #include "Letra.h"
 class Abecedario{
 		public:
-			   Letra a;
+			   Letra letras[36];
          void Llenar();
     private:
 };
