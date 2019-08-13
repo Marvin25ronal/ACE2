@@ -4,6 +4,7 @@
 class Abecedario{
 		public:
 			   Letra letras[36];
+         unsigned char morses[36][6];
          void Llenar();
     private:
 };
