@@ -55,16 +55,25 @@ const unsigned char
 
 
 
-
-
+//VARIABLE PARA EL MODO, MODO 1 POR DEFECTO
+volatile unsigned char modo = 1;
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  
+  //Activar el boton para el cambio de modos
+  attachInterrupt(digitalPinToInterrupt(0), cambiarModo, RISING);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   abc.Llenar();
   delay(2000);
+}
+
+void cambiarModo(){
+  modo++;
+  if(modo>3)
+      modo = 3;
 }
