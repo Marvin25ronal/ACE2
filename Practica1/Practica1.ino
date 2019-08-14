@@ -63,7 +63,7 @@ void setup() {
   Serial.begin(9600);
   
   //Activar el boton para el cambio de modos
-  attachInterrupt(digitalPinToInterrupt(0), cambiarModo, RISING);
+  attachInterrupt(digitalPinToInterrupt(2), cambiarModo, RISING);
 }
 
 void loop() {
@@ -72,6 +72,7 @@ void loop() {
   delay(2000);
 }
 
+//Metodo llamada en la interrupcion para el cambio de modo
 void cambiarModo(){
   modo++;
   if(modo>3)
