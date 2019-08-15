@@ -1,7 +1,7 @@
 //#include "Abecedario.h"
 //Abecedario abc;
 #include "LedControl.h"
-LedControl lc = LedControl(31, 33, 30, 1); //se cambian los pines despues :D
+LedControl lc = LedControl(12,11,10,1); //se cambian los pines despues :D
 
 unsigned char matrix[8][8];
 const char mensaje[12] = "holagruponn";
