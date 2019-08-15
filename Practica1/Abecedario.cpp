@@ -8,5 +8,5 @@ void Abecedario::Llenar(){
   Letra *b=new Letra();
   b->let='b';
   
-  Serial.println(b->let);
+  //Serial.println(b->let);
 }

@@ -4,7 +4,7 @@
 class Abecedario{
 		public:
 			   Letra letras[36];
-         signed char  morses [36][5] = {//MARIO
+         const signed char  morses [36][5] = {//MARIO
                                           {0,1},
                                           {1,0,0,0},
                                           {1,0,1,0},

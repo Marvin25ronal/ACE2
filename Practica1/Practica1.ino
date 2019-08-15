@@ -1,12 +1,10 @@
-#include "Abecedario.h"
-Abecedario abc;
+//#include "Abecedario.h"
+//Abecedario abc;
 #include "LedControl.h"
-
-
 LedControl lc = LedControl(31, 33, 30, 1); //se cambian los pines despues :D
 
 unsigned char matrix[8][8];
-char mensaje[11] = "holagruponn";
+const char mensaje[12] = "holagruponn";
 int posMat = 0;
 int movLetrero = 100;
 int auxmovLetrero = 0;
@@ -14,7 +12,7 @@ int auxmovLetrero = 0;
 const unsigned char
 la[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 1, 0, 0, 0}, {1, 0, 0, 0, 1, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0}}
 , lb[6][8] = {{1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 1, 0, 0, 1}, {0, 1, 1, 1, 0, 1, 1, 0}}
-, lcc[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0}}
+, lcc [6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0}}
 , ld[6][8] = {{1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 1, 0, 0, 0, 0, 1, 1}, {0, 1, 1, 1, 1, 1, 1, 0}}
 , le[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0}}
 , lf[6][8] = {{1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 1, 0, 0, 0, 0}, {1, 0, 0, 1, 0, 0, 0, 0}, {1, 0, 0, 1, 0, 0, 0, 0}, {1, 0, 0, 1, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 0}}
@@ -47,19 +45,50 @@ la[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 1, 
 , n6[6][8] = {{0, 1, 1, 1, 1, 1, 1, 0}, {1, 0, 0, 0, 1, 0, 0, 1}, {1, 0, 0, 0, 1, 0, 0, 1}, {1, 0, 0, 0, 1, 0, 0, 1}, {0, 1, 0, 0, 1, 0, 0, 1}, {0, 0, 1, 0, 0, 1, 1, 0}}
 , n7[6][8] = {{1, 1, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 1, 1, 1, 1, 1}, {1, 0, 1, 0, 0, 0, 0, 0}, {1, 1, 0, 0, 0, 0, 0, 0}}
 , n8[6][8] = {{0, 1, 1, 0, 1, 1, 1, 0}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {0, 1, 1, 0, 1, 1, 1, 0}}
-, n9[6][8] = {{0, 1, 1, 0, 0, 0, 1, 0}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {0, 1, 1, 1, 1, 1, 1, 0}};
+, n9[6][8] = {{0, 1, 1, 0, 0, 0, 1, 0}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {0, 1, 1, 1, 1, 1, 1, 0}}
+
+, dot[6][8] = {{0, 1, 1, 0, 0, 0, 1, 0}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {0, 1, 1, 1, 1, 1, 1, 0}}
+, dash[6][8] = {{0, 1, 1, 0, 0, 0, 1, 0}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {0, 1, 1, 1, 1, 1, 1, 0}};
 
 const unsigned char
-ma[2] = {0, 1},       mb[4] = {1, 0, 0, 0},      mc[4] = {1, 0, 1, 0},    md[3] = {1, 0, 0},      me[1] = {0} ,         mf[4] = {0, 0, 1, 0}
-                              , mg[3] = {1, 1, 0},     mh[4] = {0, 0, 0, 0},      mi[2] = {0, 0},        mj[4] = {0, 1, 1, 1},    mk[3] = {1, 0, 1},      ml[4] = {0, 1, 0, 0}
-                                        , mm[2] = {1, 1},       mn[2] = {1, 0},          mo[3] = {1, 1, 1},      mp[4] = {0, 1, 1, 0},    mq[4] = {1, 1, 0, 1},    mr[3] = {0, 1, 0}
-                                            , ms[3] = {0, 0, 0},     mt[1] = {1},            mu[3] = {0, 0, 1},      mv[4] = {0, 0, 0, 1},    mw[3] = {0, 1, 1},      mx[4] = {1, 0, 0, 1}
-                                                , my[4] = {1, 0, 1, 1},   mz[4] = {1, 1, 0, 0},      m1[5] = {0, 1, 1, 1, 1},  m2[5] = {0, 0, 1, 1, 1},  m3[5] = {0, 0, 0, 1, 1},  m4[5] = {0, 0, 0, 0, 1}
-                                                    , m5[5] = {0, 0, 0, 0, 0}, m6[5] = {1, 0, 0, 0, 0},    m7[5] = {1, 1, 0, 0, 0},  m8[5] = {1, 1, 1, 0, 0},  m9[5] = {1, 1, 1, 1, 0},  m0[5] = {1, 1, 1, 1, 1};
+  ma[5] = {0, 1, 2, 2, 2},       
+  mb[5] = {1, 0, 0, 0, 2},      
+  mc[5] = {1, 0, 1, 0, 2},    
+  md[5] = {1, 0, 0, 2, 2},     
+  me[5] = {0, 2, 2, 2, 2},         
+  mf[5] = {0, 0, 1, 0, 2}, 
+  mg[5] = {1, 1, 0, 2, 2},    
+  mh[5] = {0, 0, 0, 0, 2},      
+  mi[5] = {0, 0, 2, 2, 2},      
+  mj[5] = {0, 1, 1, 1, 2},   
+  mk[5] = {1, 0, 1, 2, 2},    
+  ml[5] = {0, 1, 0, 0, 2}, 
+  mm[5] = {1, 1, 2, 2, 2},      
+  mn[5] = {1, 0, 2, 2, 2},          
+  mo[5] = {1, 1, 1, 2, 2},    
+  mp[5] = {0, 1, 1, 0, 2},   
+  mq[5] = {1, 1, 0, 1, 2},    
+  mr[5] = {0, 1, 0, 2, 2}, 
+  ms[5] = {0, 0, 0, 2, 2},   
+  mt[5] = {1, 2, 2, 2, 2},          
+  mu[5] = {0, 0, 1, 2, 2},     
+  mv[5] = {0, 0, 0, 1, 2},   
+  mw[5] = {0, 1, 1, 2, 2},    
+  mx[5] = {1, 0, 0, 1, 2}, 
+  my[5] = {1, 0, 1, 1, 2}, 
+  mz[5] = {1, 1, 0, 0, 2},     
+  m1[5] = {0, 1, 1, 1, 1}, 
+  m2[5] = {0, 0, 1, 1, 1}, 
+  m3[5] = {0, 0, 0, 1, 1}, 
+  m4[5] = {0, 0, 0, 0, 1}, 
+  m5[5] = {0, 0, 0, 0, 0},
+  m6[5] = {1, 0, 0, 0, 0},   
+  m7[5] = {1, 1, 0, 0, 0},  
+  m8[5] = {1, 1, 1, 0, 0},  
+  m9[5] = {1, 1, 1, 1, 0},
+  m0[5] = {1, 1, 1, 1, 1};
 
-
-
-void prueba(int x , unsigned char arr[6][8]) {
+void prueba(int x , const unsigned char arr[6][8]) {
   for (int a = 0; a < 6; a++) {
     if (a + x < 0) {
       continue;
@@ -92,6 +121,7 @@ void setArr(int x , char c) {
     case  'i': prueba(x , li); break;
     case  'j': prueba(x , lj); break;
     case  'k': prueba(x , lk); break;
+    case  'l': prueba(x , ll); break;
     case  'm': prueba(x , lm); break;
     case  'n': prueba(x , ln); break;
     case  'o': prueba(x , n0); break;
@@ -137,12 +167,68 @@ void setup() {
   Serial.begin(9600);
 
   //Activar el boton para el cambio de modos
-  attachInterrupt(digitalPinToInterrupt(2), cambiarModo, RISING);
+  attachInterrupt(digitalPinToInterrupt(2), cambiarModo, HIGH);
+}
+
+void imprimirMorse(int x, const unsigned char morse[5]){
+    for(int i = 0; i<5; i++){
+      if(morse[i]==0)
+        prueba(x, dot);
+      else if(morse[i]==1)
+        prueba(x, dash);
+      else 
+        break;
+    }
+}
+
+void setMorse(int x, char c){
+  if (x < -6 || 17 < x) {
+    return;
+  }
+  switch (c) {
+    case  'a': imprimirMorse(x , ma); break;
+    case  'b': imprimirMorse(x , mb); break;
+    case  'c': imprimirMorse(x , mc); break;
+    case  'd': imprimirMorse(x , md); break;
+    case  'e': imprimirMorse(x , me); break;
+    case  'f': imprimirMorse(x , mf); break;
+    case  'g': imprimirMorse(x , mg); break;
+    case  'h': imprimirMorse(x , mh); break;
+    case  'i': imprimirMorse(x , mi); break;
+    case  'j': imprimirMorse(x , mj); break;
+    case  'k': imprimirMorse(x , mk); break;
+    case  'l': imprimirMorse(x , ml); break;
+    case  'm': imprimirMorse(x , mm); break;
+    case  'n': imprimirMorse(x , mn); break;
+    case  'o': imprimirMorse(x , m0); break;
+    case  'p': imprimirMorse(x , mp); break;
+    case  'q': imprimirMorse(x , mq); break;
+    case  'r': imprimirMorse(x , mr); break;
+    case  's': imprimirMorse(x , ms); break;
+    case  't': imprimirMorse(x , mt); break;
+    case  'u': imprimirMorse(x , mu); break;
+    case  'v': imprimirMorse(x , mv); break;
+    case  'w': imprimirMorse(x , mw); break;
+    case  'x': imprimirMorse(x , mx); break;
+    case  'y': imprimirMorse(x , my); break;
+    case  'z': imprimirMorse(x , mz); break;
+
+    case  '0': imprimirMorse(x , m0); break;
+    case  '1': imprimirMorse(x , m1); break;
+    case  '2': imprimirMorse(x , m2); break;
+    case  '3': imprimirMorse(x , m3); break;
+    case  '4': imprimirMorse(x , m4); break;
+    case  '5': imprimirMorse(x , m5); break;
+    case  '6': imprimirMorse(x , m6); break;
+    case  '7': imprimirMorse(x , m7); break;
+    case  '8': imprimirMorse(x , m8); break;
+    case  '9': imprimirMorse(x , m9); break;
+  }    
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  abc.Llenar();
+  //abc.Llenar();
 
   auxmovLetrero++;
   if (auxmovLetrero >= movLetrero) {
