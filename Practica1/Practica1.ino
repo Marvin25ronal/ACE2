@@ -335,7 +335,7 @@ void loop() {
      int modo=root[String("modo")];
      String texto=root[String("texto")];*/
       String texto="hola putos";
-      int modo=3;
+      int modo=2;
       texto.toLowerCase();
   if (modo == 1) {
     auxmovLetrero++;
@@ -356,7 +356,7 @@ void loop() {
     }
   } else if (modo == 2) {
 
-    modo3(0,texto);
+    Modo2(texto);
 
   } else if(modo == 3){
     /*for(int i=0;i<texto.length();i++){
@@ -384,8 +384,18 @@ void modo3(int x, String cadena) {
   }
 }
 
-void Modo2(String texto){
+void Modo2(String cadena){
+  Serial.println(cadena+"dd");
+  for (int a = 0; a < 8; a++) {
+    for (int b = 0; b < 8; b++) {
+      matrix[a][b] = 0;
+    }
+  }
+  for (int a = 0; a < cadena.length(); a++) {
+    //setV(200,(char)(cadena[a]));
 
+    setMorse(10, (char)cadena[a]);
+  }
 }
 void Modo1(String texto){
 
