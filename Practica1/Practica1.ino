@@ -3,6 +3,11 @@
 #include "LedControl.h"
 LedControl lc = LedControl(12,11,10,1); //se cambian los pines despues :D
 
+int cambiar(int x) {
+  return (x - 7) * -1;    //para probar en la vida real
+  //return x;             //para probar en proteus
+}
+
 unsigned char matrix[8][8];
 const char mensaje[12] = "holagruponn";
 int posMat = 0;
@@ -247,7 +252,7 @@ void loop() {
       }
       for (int b = 0; b < 8; b++) {
         for (int a = 0; a < 8; a++) {
-          lc.setLed(0 , b, a , matrix[b][a]); // se colocan los pines de la matriz con driver
+          lc.setLed(0 , b, cambiar(a) , matrix[b][a]); // se colocan los pines de la matriz con driver
         }
       }
     }
