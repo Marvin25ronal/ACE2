@@ -247,7 +247,7 @@ void loop() {
       setMat(posMat);
       posMat -= 1;
       //n letras de la frase * 6 hola grupo, se cambia si no agarra jaja
-      if (posMat == - 54) { //para que sea circular el retrero
+      if (posMat == - 60) { //para que sea circular el retrero
         posMat = 9;
       }
       for (int b = 0; b < 8; b++) {
