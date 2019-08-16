@@ -325,7 +325,7 @@ void loop() {
      int modo=root[String("modo")];
      String texto=root[String("texto")];*/
       String texto="hola putos";
-      int modo=2;
+      int modo=1;
       texto.toLowerCase();
   if (modo == 1)
     Modo1();
