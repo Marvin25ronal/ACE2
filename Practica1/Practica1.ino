@@ -6,8 +6,8 @@ LedControl lc = LedControl(12,11,10,1); //se cambian los pines despues :D
 unsigned char matrix[8][8];
 const char mensaje[12] = "holagruponn";
 int posMat = 0;
-int movLetrero = 100;
-int auxmovLetrero = 0;
+int movLetrero = 20;
+int auxmovLetrero = 100;
 
 const unsigned char
   la[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 1, 0, 0, 0}, {1, 0, 0, 0, 1, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0}}
@@ -168,6 +168,12 @@ void setup() {
 
   //Activar el boton para el cambio de modos
   attachInterrupt(digitalPinToInterrupt(2), cambiarModo, HIGH);
+
+
+  lc.shutdown(0, false);
+  lc.setIntensity(0, 10);
+  lc.clearDisplay(0);
+  
 }
 
 void imprimirMorse(int x, const unsigned char morse[5]){
@@ -229,23 +235,28 @@ void setMorse(int x, char c){
 void loop() {
   // put your main code here, to run repeatedly:
   //abc.Llenar();
-
-  auxmovLetrero++;
-  if (auxmovLetrero >= movLetrero) {
-    auxmovLetrero = 0;
-    setMat(posMat);
-    posMat -= 1;
-    //n letras de la frase * 6 hola grupo, se cambia si no agarra jaja
-    if (posMat == - 54) { //para que sea circular el retrero
-      posMat = 9;
-    }
-    for (int b = 0; b < 8; b++) {
-      for (int a = 0; a < 8; a++) {
-        lc.setLed(0 , b, a , matrix[b][a]); // se colocan los pines de la matriz con driver
+  if (modo == 1 || true) {
+    auxmovLetrero++;
+    if (auxmovLetrero >= movLetrero) {
+      auxmovLetrero = 0;
+      setMat(posMat);
+      posMat -= 1;
+      //n letras de la frase * 6 hola grupo, se cambia si no agarra jaja
+      if (posMat == - 54) { //para que sea circular el retrero
+        posMat = 9;
+      }
+      for (int b = 0; b < 8; b++) {
+        for (int a = 0; a < 8; a++) {
+          lc.setLed(0 , b, a , matrix[b][a]); // se colocan los pines de la matriz con driver
+        }
       }
     }
+  } else if (modo == 2) {
+
+
+
   }
-  delay(1);
+  delay(10);
 }
 
 //Metodo llamada en la interrupcion para el cambio de modo
