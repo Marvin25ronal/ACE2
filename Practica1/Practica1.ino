@@ -337,34 +337,17 @@ void loop() {
       String texto="hola putos";
       int modo=2;
       texto.toLowerCase();
-  if (modo == 1) {
-    auxmovLetrero++;
-    if (auxmovLetrero >= movLetrero) {
-      auxmovLetrero = 0;
-      setMat(posMat);
-      posMat -= 1;
-      //n letras de la frase * 6 hola grupo, se cambia si no agarra jaja
-      if (posMat == - 64) { //para que sea circular el retrero
-        posMat = 9;
-      }
-      for (int b = 0; b < 8; b++) {
-        for (int a = 0; a < 8; a++) {
-          lc.setLed(0 , b, cambiar(a) , matrix[b][a]); // se colocan los pines de la matriz con driver
-        }
-
-      }
-    }
-  } else if (modo == 2) {
-
+  if (modo == 1)
+    Modo1();
+  else if (modo == 2)
     Modo2(texto);
-
-  } else if(modo == 3){
+  else if(modo == 3){
     /*for(int i=0;i<texto.length();i++){
       Serial.println(texto[i]);
       setV(0,(char)(texto[i]));
 
     }*/
-    modo3(0,texto);
+    Modo3(0,texto);
    // setV(0 , 'a');
    }
   delay(10);
@@ -372,7 +355,7 @@ void loop() {
 }
 
 //setea cada letra y morse en su lugar
-void modo3(int x, String cadena) {
+void Modo3(int x, String cadena) {
   for (int a = 0; a < 8; a++) {
     for (int b = 0; b < 8; b++) {
       matrix[a][b] = 0;
@@ -398,7 +381,22 @@ void Modo2(String cadena){
   }
 }
 void Modo1(String texto){
+  auxmovLetrero++;
+  if (auxmovLetrero >= movLetrero) {
+    auxmovLetrero = 0;
+    setMat(posMat);
+    posMat -= 1;
+    //n letras de la frase * 6 hola grupo, se cambia si no agarra jaja
+    if (posMat == - 64) { //para que sea circular el retrero
+      posMat = 9;
+    }
+    for (int b = 0; b < 8; b++) {
+      for (int a = 0; a < 8; a++) {
+        lc.setLed(0 , b, cambiar(a) , matrix[b][a]); // se colocan los pines de la matriz con driver
+      }
 
+    }
+  }
 }
 
 //Metodo llamada en la interrupcion para el cambio de modo
