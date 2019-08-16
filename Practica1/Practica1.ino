@@ -10,6 +10,8 @@ int cambiar(int x) {
   //return x;             //para probar en proteus
 }
 
+
+
 unsigned char matrix[8][8];
 const char mensaje[13] = "holagrupo15";
 int posMat = 0;
@@ -59,41 +61,29 @@ la[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 1, 
 
 const unsigned char
 ma[5] = {0, 1, 2, 2, 2},
-        mb[5] = {1, 0, 0, 0, 2},
-                mc[5] = {1, 0, 1, 0, 2},
-                        md[5] = {1, 0, 0, 2, 2},
-                                me[5] = {0, 2, 2, 2, 2},
-                                        mf[5] = {0, 0, 1, 0, 2},
-                                            mg[5] = {1, 1, 0, 2, 2},
-                                                mh[5] = {0, 0, 0, 0, 2},
-                                                    mi[5] = {0, 0, 2, 2, 2},
-                                                        mj[5] = {0, 1, 1, 1, 2},
-                                                            mk[5] = {1, 0, 1, 2, 2},
-                                                                ml[5] = {0, 1, 0, 0, 2},
-                                                                    mm[5] = {1, 1, 2, 2, 2},
-                                                                        mn[5] = {1, 0, 2, 2, 2},
-                                                                            mo[5] = {1, 1, 1, 2, 2},
-                                                                                mp[5] = {0, 1, 1, 0, 2},
-                                                                                    mq[5] = {1, 1, 0, 1, 2},
-                                                                                        mr[5] = {0, 1, 0, 2, 2},
-                                                                                            ms[5] = {0, 0, 0, 2, 2},
-                                                                                                mt[5] = {1, 2, 2, 2, 2},
-                                                                                                    mu[5] = {0, 0, 1, 2, 2},
-                                                                                                        mv[5] = {0, 0, 0, 1, 2},
-                                                                                                            mw[5] = {0, 1, 1, 2, 2},
-                                                                                                                mx[5] = {1, 0, 0, 1, 2},
-                                                                                                                    my[5] = {1, 0, 1, 1, 2},
-                                                                                                                        mz[5] = {1, 1, 0, 0, 2},
-                                                                                                                            m1[5] = {0, 1, 1, 1, 1},
-                                                                                                                                m2[5] = {0, 0, 1, 1, 1},
-                                                                                                                                    m3[5] = {0, 0, 0, 1, 1},
-                                                                                                                                        m4[5] = {0, 0, 0, 0, 1},
-                                                                                                                                            m5[5] = {0, 0, 0, 0, 0},
-                                                                                                                                                m6[5] = {1, 0, 0, 0, 0},
-                                                                                                                                                    m7[5] = {1, 1, 0, 0, 0},
-                                                                                                                                                        m8[5] = {1, 1, 1, 0, 0},
-                                                                                                                                                            m9[5] = {1, 1, 1, 1, 0},
-                                                                                                                                                                m0[5] = {1, 1, 1, 1, 1};
+mb[5] = {1, 0, 0, 0, 2},
+mc[5] = {1, 0, 1, 0, 2},
+md[5] = {1, 0, 0, 2, 2},
+me[5] = {0, 2, 2, 2, 2},
+mf[5] = {0, 0, 1, 0, 2},
+mg[5] = {1, 1, 0, 2, 2},
+mh[5] = {0, 0, 0, 0, 2},
+mi[5] = {0, 0, 2, 2, 2},
+mj[5] = {0, 1, 1, 1, 2},
+mk[5] = {1, 0, 1, 2, 2},
+ml[5] = {0, 1, 0, 0, 2},
+mm[5] = {1, 1, 2, 2, 2},
+mn[5] = {1, 0, 2, 2, 2},
+mo[5] = {1, 1, 1, 2, 2},
+mp[5] = {0, 1, 1, 0, 2},
+mq[5] = {1, 1, 0, 1, 2},
+mr[5] = {0, 1, 0, 2, 2},
+ms[5] = {0, 0, 0, 2, 2},
+mt[5] = {1, 2, 2, 2, 2},
+mu[5] = {0, 0, 1, 2, 2},
+mv[5] = {0, 0, 0, 1, 2},
+mw[5] = {0, 1, 1, 2, 2,
+                                                                                                                                                            
 
 void prueba(int x , const unsigned char arr[6][8]) {
   for (int a = 0; a < 6; a++) {
@@ -108,8 +98,6 @@ void prueba(int x , const unsigned char arr[6][8]) {
     }
   }
 }
-
-
 
 
 void setArr(int x , char c) {
@@ -158,6 +146,70 @@ void setArr(int x , char c) {
 }
 
 
+
+void mostrarVertical(int x , const unsigned char arr[6][8]){
+
+   int aux1 = 7;
+   int aux2 = 1;
+   for(int a = 0; a < 8; a++){
+      lc.clearDisplay(0);
+      for(int b = 0; b < aux2; b++){
+        for(int c = 0; c < 6; c++){
+            lc.setLed(0 , c, cambiar(b + aux1) , arr[c][b] );
+        }
+      }
+      delay(200);
+      aux1--;
+      aux2++;
+   }
+}
+
+void setV(int x , char c) {
+  if (x < -6 || 17 < x) {
+    return;
+  }
+  switch (c) {
+    case  'a': mostrarVertical(x , la); break;
+    case  'b': mostrarVertical(x , lb); break;
+    case  'c': mostrarVertical(x , lcc); break;
+    case  'd': mostrarVertical(x , ld); break;
+    case  'e': mostrarVertical(x , le); break;
+    case  'f': mostrarVertical(x , lf); break;
+    case  'g': mostrarVertical(x , lg); break;
+    case  'h': mostrarVertical(x , lh); break;
+    case  'i': mostrarVertical(x , li); break;
+    case  'j': mostrarVertical(x , lj); break;
+    case  'k': mostrarVertical(x , lk); break;
+    case  'l': mostrarVertical(x , ll); break;
+    case  'm': mostrarVertical(x , lm); break;
+    case  'n': mostrarVertical(x , ln); break;
+    case  'o': mostrarVertical(x , n0); break;
+    case  'p': mostrarVertical(x , lp); break;
+    case  'q': mostrarVertical(x , lq); break;
+    case  'r': mostrarVertical(x , lr); break;
+    case  's': mostrarVertical(x , ls); break;
+    case  't': mostrarVertical(x , lt); break;
+    case  'u': mostrarVertical(x , lu); break;
+    case  'v': mostrarVertical(x , lv); break;
+    case  'w': mostrarVertical(x , lw); break;
+    case  'x': mostrarVertical(x , lx); break;
+    case  'y': mostrarVertical(x , ly); break;
+    case  'z': mostrarVertical(x , lz); break;
+
+    case  '0': mostrarVertical(x , n0); break;
+    case  '1': mostrarVertical(x , n1); break;
+    case  '2': mostrarVertical(x , n2); break;
+    case  '3': mostrarVertical(x , n3); break;
+    case  '4': mostrarVertical(x , n4); break;
+    case  '5': mostrarVertical(x , n5); break;
+    case  '6': mostrarVertical(x , n6); break;
+    case  '7': mostrarVertical(x , n7); break;
+    case  '8': mostrarVertical(x , n8); break;
+    case  '9': mostrarVertical(x , n9); break;
+  }
+}
+
+
 //setea cada letra en su lugar
 void setMat(int x) {
   for (int a = 0; a < 8; a++) {
@@ -171,7 +223,6 @@ void setMat(int x) {
   }
 }
 
-
 //VARIABLE PARA EL MODO, MODO 1 POR DEFECTO
 volatile unsigned char modo = 1;
 
@@ -182,10 +233,12 @@ void setup() {
 
   //Activar el boton para el cambio de modos
   attachInterrupt(digitalPinToInterrupt(2), cambiarModo, HIGH);
-  
+
+
   lc.shutdown(0, false);
   lc.setIntensity(0, 10);
   lc.clearDisplay(0);
+
 }
 
 void imprimirMorse(int x, const unsigned char morse[5]) {
@@ -196,21 +249,6 @@ void imprimirMorse(int x, const unsigned char morse[5]) {
       prueba(x, dash);
     else
       break;
-    x += 6;
-  }
-}
-
-//setea cada letra y morse en su lugar
-void modo3(int x, String cadena) {
-  for (int a = 0; a < 8; a++) {
-    for (int b = 0; b < 8; b++) {
-      matrix[a][b] = 0;
-    }
-  }
-  for (int a = 0; a < cadena.length(); a++) {
-    setArr(x, (char)cadena[a]);
-    x += 6;
-    setMorse(x, (char)cadena[a]);
   }
 }
 
@@ -263,26 +301,17 @@ void loop() {
   // put your main code here, to run repeatedly:
   //abc.Llenar();
 
-  while(Serial1.available()>0){
+  /*while(Serial1.available()>0){
      String data = Serial1.readStringUntil('\n');
      Serial.println(data);
      DynamicJsonBuffer jsonBuffer;
      JsonObject&root=jsonBuffer.parseObject(data);
      int modo=root[String("modo")];
-     String texto=root[String("texto")];
-     if(modo==1){
-
-     }else if(modo==2){
-
-     }else if(modo==3){
-
-     }
-
-     //aqui lo mando
-  }
-  delay(100);
-
-  if (modo == 1 || true) {
+     String texto=root[String("texto")];*/
+      String texto="hola";
+      int modo=3;
+      texto=texto.toLowerCase();
+  if (modo == 1) {
     auxmovLetrero++;
     if (auxmovLetrero >= movLetrero) {
       auxmovLetrero = 0;
@@ -302,9 +331,31 @@ void loop() {
 
 
 
-  }
+  } else if(modo == 3){
+    for(int i=0;i<texto.length();i++){
+      Serial.println(texto[i]);
+      setV(0,(char)(texto[i]));
+      
+    }
+   // setV(0 , 'a');
+   }
   delay(10);
 }
+
+//setea cada letra y morse en su lugar
+void modo3(int x, String cadena) {
+  for (int a = 0; a < 8; a++) {
+    for (int b = 0; b < 8; b++) {
+      matrix[a][b] = 0;
+    }
+  }
+  for (int a = 0; a < cadena.length(); a++) {
+    setArr(x, (char)cadena[a]);
+    x += 6;
+    setMorse(x, (char)cadena[a]);
+  }
+}
+
 void Modo2(String texto){
 
 }
@@ -317,4 +368,5 @@ void cambiarModo() {
   modo++;
   if (modo > 3)
     modo = 3;
+    lc.clearDisplay(0);
 }
