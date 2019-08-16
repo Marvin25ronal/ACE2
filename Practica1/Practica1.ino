@@ -83,7 +83,7 @@ mt[5] = {1, 2, 2, 2, 2},
 mu[5] = {0, 0, 1, 2, 2},
 mv[5] = {0, 0, 0, 1, 2},
 mw[5] = {0, 1, 1, 2, 2,
-                                                                                                                                                            
+
 
 void prueba(int x , const unsigned char arr[6][8]) {
   for (int a = 0; a < 6; a++) {
@@ -335,7 +335,7 @@ void loop() {
     for(int i=0;i<texto.length();i++){
       Serial.println(texto[i]);
       setV(0,(char)(texto[i]));
-      
+
     }
    // setV(0 , 'a');
    }
