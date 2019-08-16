@@ -201,16 +201,16 @@ void imprimirMorse(int x, const unsigned char morse[5]) {
 }
 
 //setea cada letra y morse en su lugar
-void modo3(int x) {
+void modo3(int x, String cadena) {
   for (int a = 0; a < 8; a++) {
     for (int b = 0; b < 8; b++) {
       matrix[a][b] = 0;
     }
   }
-  for (int a = 0; a < 12; a++) {
-    setArr(x, mensaje[a]);
+  for (int a = 0; a < cadena.length(); a++) {
+    setArr(x, (char)cadena[a]);
     x += 6;
-    setMorse(x, mensaje[a]);
+    setMorse(x, (char)cadena[a]);
   }
 }
 
