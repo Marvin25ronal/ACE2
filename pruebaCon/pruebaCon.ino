@@ -1,4 +1,7 @@
 #include <ESP8266WiFi.h>
+#include <SoftwareSerial.h>
+SoftwareSerial NodeMCU(D2,D3);
+
 #include "ESP8266HTTPClient.h"
 const char* ssid="Familion Martinez";
 const char* password="Marvin25";
@@ -10,7 +13,9 @@ void setup() {
   pinMode(2,OUTPUT);
   Serial.print("Wifi connecting to ");
   Serial.println( ssid );
-
+  NodeMCU.begin(9600);
+  pinMode(D2,INPUT);
+  pinMode(D3,OUTPUT);
   WiFi.begin(ssid,password);
 
   Serial.println();
@@ -18,7 +23,7 @@ void setup() {
 
   while( WiFi.status() != WL_CONNECTED ){
       delay(500);
-      Serial.print(".");        
+      Serial.print(".");
   }
    Serial.println();
 
@@ -31,7 +36,6 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   digitalWrite(2,HIGH);
-  Serial.println("hola0");
   prueba();
   delay(5000);
 }
@@ -39,8 +43,8 @@ void prueba(){
   if(WiFi.status()==WL_CONNECTED){
     HTTPClient http;
     Serial.print("[HTTP] begin..\n");
- //  http.begin("http://api.thingspeak.com/channels/309236/feeds/last.txt"); //HTTP
-    http.begin("https://www.google.com", "9ba996f2c2eb712b55920dcebf39532761a7b8bd"); //HTTPS
+   //http.begin("http://www.json-generator.com/api/json/get/cquDZXUdiW?indent=2"); //HTTP
+   http.begin("https://arqui2-prueba2.herokuapp.com/pendiente", "9ba996f2c2eb712b55920dcebf39532761a7b8bd"); //HTTPS
     Serial.println("[HTTP] GET ...");
     int httpCode=http.GET();
     if (httpCode > 0) {
@@ -48,6 +52,15 @@ void prueba(){
       if (httpCode == HTTP_CODE_OK) {
         String payload = http.getString();
         Serial.println(payload);
+        //Mandar datos al arduino
+
+        if(payload.length()==0||payload.equals("null")){
+          Serial.println("Esta vacia");
+          NodeMCU.println("Esta vacia");
+        }else{
+          //se manda al arduino
+          NodeMCU.println(payload);
+        }
         Serial.print("ok");
       }
     } else {
