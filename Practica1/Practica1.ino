@@ -9,7 +9,7 @@ int cambiar(int x) {
 }
 
 unsigned char matrix[8][8];
-const char mensaje[12] = "holagruponn";
+const char mensaje[13] = "holagrupo15";
 int posMat = 0;
 int movLetrero = 20;
 int auxmovLetrero = 100;
@@ -158,7 +158,7 @@ void setArr(int x , char c) {
 
 //setea cada letra en su lugar
 void setMat(int x) {
-  for (int a = 0; a < 11; a++) {
+  for (int a = 0; a < 12; a++) {
     setArr(x, mensaje[a]);
     x += 6;
   }
@@ -247,7 +247,7 @@ void loop() {
       setMat(posMat);
       posMat -= 1;
       //n letras de la frase * 6 hola grupo, se cambia si no agarra jaja
-      if (posMat == - 60) { //para que sea circular el retrero
+      if (posMat == - 68) { //para que sea circular el retrero
         posMat = 9;
       }
       for (int b = 0; b < 8; b++) {
