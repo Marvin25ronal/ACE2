@@ -3,7 +3,6 @@
 int frecuencia=500;
 int pin=22;
 #include <ArduinoJson.h>
-
 #include "LedControl.h"
 
 //VARIABLE PARA EL MODO, MODO 1 POR DEFECTO
@@ -15,8 +14,6 @@ int cambiar(int x) {
   return (x - 7) * -1;    //para probar en la vida real
   //return x;             //para probar en proteus
 }
-
-
 
 unsigned char matrix[8][8];
 const char mensaje[13] = "holagrupo15";
@@ -78,42 +75,16 @@ la[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 1, 
 {0, 0, 0, 0, 0, 0, 0, 0}};
 
 const unsigned char
-ma[5] = {0, 1, 2, 2, 2},
-        mb[5] = {1, 0, 0, 0, 2},
-                mc[5] = {1, 0, 1, 0, 2},
-                        md[5] = {1, 0, 0, 2, 2},
-                                me[5] = {0, 2, 2, 2, 2},
-                                        mf[5] = {0, 0, 1, 0, 2},
-                                            mg[5] = {1, 1, 0, 2, 2},
-                                                mh[5] = {0, 0, 0, 0, 2},
-                                                    mi[5] = {0, 0, 2, 2, 2},
-                                                        mj[5] = {0, 1, 1, 1, 2},
-                                                            mk[5] = {1, 0, 1, 2, 2},
-                                                                ml[5] = {0, 1, 0, 0, 2},
-                                                                    mm[5] = {1, 1, 2, 2, 2},
-                                                                        mn[5] = {1, 0, 2, 2, 2},
-                                                                            mo[5] = {1, 1, 1, 2, 2},
-                                                                                mp[5] = {0, 1, 1, 0, 2},
-                                                                                    mq[5] = {1, 1, 0, 1, 2},
-                                                                                        mr[5] = {0, 1, 0, 2, 2},
-                                                                                            ms[5] = {0, 0, 0, 2, 2},
-                                                                                                mt[5] = {1, 2, 2, 2, 2},
-                                                                                                    mu[5] = {0, 0, 1, 2, 2},
-                                                                                                        mv[5] = {0, 0, 0, 1, 2},
-                                                                                                            mw[5] = {0, 1, 1, 2, 2},
-                                                                                                                mx[5] = {1, 0, 0, 1, 2},
-                                                                                                                    my[5] = {1, 0, 1, 1, 2},
-                                                                                                                        mz[5] = {1, 1, 0, 0, 2},
-                                                                                                                            m1[5] = {0, 1, 1, 1, 1},
-                                                                                                                                m2[5] = {0, 0, 1, 1, 1},
-                                                                                                                                    m3[5] = {0, 0, 0, 1, 1},
-                                                                                                                                        m4[5] = {0, 0, 0, 0, 1},
-                                                                                                                                            m5[5] = {0, 0, 0, 0, 0},
-                                                                                                                                                m6[5] = {1, 0, 0, 0, 0},
-                                                                                                                                                    m7[5] = {1, 1, 0, 0, 0},
-                                                                                                                                                        m8[5] = {1, 1, 1, 0, 0},
-                                                                                                                                                            m9[5] = {1, 1, 1, 1, 0},
-                                                                                                                                                                m0[5] = {1, 1, 1, 1, 1};
+ma[6] = {3, 0, 1, 2, 2, 2}, mb[6] = {1, 1, 0, 0, 0, 2}, mc[6] = {1, 1, 0, 1, 0, 2}, md[6] = {2, 1, 0, 0, 2, 2}, me[6] = {4, 0, 2, 2, 2, 2},
+mf[6] = {1, 0, 0, 1, 0, 2}, mg[6] = {2, 1, 1, 0, 2, 2}, mh[6] = {1, 0, 0, 0, 0, 2}, mi[6] = {3, 0, 0, 2, 2, 2}, mj[6] = {1, 0, 1, 1, 1, 2},
+mk[6] = {2, 1, 0, 1, 2, 2}, ml[6] = {1, 0, 1, 0, 0, 2}, mm[6] = {3, 1, 1, 2, 2, 2}, mn[6] = {3, 1, 0, 2, 2, 2}, mo[6] = {2, 1, 1, 1, 2, 2},
+mp[6] = {1, 0, 1, 1, 0, 2}, mq[6] = {1, 1, 1, 0, 1, 2}, mr[6] = {2, 0, 1, 0, 2, 2}, ms[6] = {2, 0, 0, 0, 2, 2}, mt[6] = {4, 1, 2, 2, 2, 2},
+mu[6] = {2, 0, 0, 1, 2, 2}, mv[6] = {1, 0, 0, 0, 1, 2}, mw[6] = {2, 0, 1, 1, 2, 2}, mx[6] = {1, 1, 0, 0, 1, 2}, my[6] = {1, 1, 0, 1, 1, 2},
+mz[6] = {1, 1, 1, 0, 0, 2},
+m1[6] = {1, 0, 1, 1, 1, 1}, m2[6] = {1, 0, 0, 1, 1, 1}, m3[6] = {1, 0, 0, 0, 1, 1}, m4[6] = {1, 0, 0, 0, 0, 1}, m5[6] = {1, 0, 0, 0, 0, 0},
+m6[6] = {1, 1, 0, 0, 0, 0}, m7[6] = {1, 1, 1, 0, 0, 0}, m8[6] = {1, 1, 1, 1, 0, 0}, m9[6] = {1, 1, 1, 1, 1, 0}, m0[6] = {1, 1, 1, 1, 1, 1}; 
+
+int contMorse = 0;
 
 void prueba(int x , const unsigned char arr[6][8]) {
   for (int a = 0; a < 6; a++) {
@@ -129,6 +100,21 @@ void prueba(int x , const unsigned char arr[6][8]) {
   }
 }
 
+void mostrarVertical(int x , const unsigned char arr[6][8]){
+   int aux1 = 7;
+   int aux2 = 1;
+   for(int a = 0; a < 8; a++){
+      lc.clearDisplay(0);
+      for(int b = 0; b < aux2; b++){
+        for(int c = 0; c < 6; c++){
+            lc.setLed(0 , c, cambiar(b + aux1) , arr[c][b] );
+        }
+      }
+      delay(x);
+      aux1--;
+      aux2++;
+   }
+}
 
 void setArr(int x , char c) {
   if (x < -6 || 17 < x) {
@@ -175,24 +161,7 @@ void setArr(int x , char c) {
   }
 }
 
-void mostrarVertical(int x , const unsigned char arr[6][8]){
-   int aux1 = 7;
-   int aux2 = 1;
-   for(int a = 0; a < 8; a++){
-      lc.clearDisplay(0);
-      for(int b = 0; b < aux2; b++){
-        for(int c = 0; c < 6; c++){
-            lc.setLed(0 , c, cambiar(b + aux1) , arr[c][b] );
-        }
-      }
-      delay(x);
-      aux1--;
-      aux2++;
-   }
-}
-
 void setV(int x , char c) {
-
   switch (c) {
     case  'a': mostrarVertical(x , la); break;
     case  'b': mostrarVertical(x , lb); break;
@@ -234,39 +203,7 @@ void setV(int x , char c) {
   }
 }
 
-
-//setea cada letra en su lugar
-void setMat(int x) {
-  for (int a = 0; a < 8; a++) {
-    for (int b = 0; b < 8; b++) {
-      matrix[a][b] = 0;
-    }
-  }
-  for (int a = 0; a < 12; a++) {
-    setArr(x, mensaje[a]);
-    x += 6;
-  }
-}
-
-void imprimirMorse(int x, const unsigned char morse[5]) {
-  for (int i = 0; i < 5; i++) {
-    if (morse[i] == 0){
-      mostrarVertical(x, dot);
-      SonarPunto();
-    }
-
-    else if (morse[i] == 1){
-      mostrarVertical(x, dash);
-      SonarBarra();
-    }
-
-    else
-      break;
-  }
-}
-
 void setMorse(int x, char c) {
-
   switch (c) {
     case  'a': imprimirMorse(x , ma); break;
     case  'b': imprimirMorse(x , mb); break;
@@ -306,6 +243,49 @@ void setMorse(int x, char c) {
     case  '8': imprimirMorse(x , m8); break;
     case  '9': imprimirMorse(x , m9); break;
   }
+}
+
+
+
+//setea cada letra en su lugar
+void setMat(int x) {
+  for (int a = 0; a < 8; a++) {
+    for (int b = 0; b < 8; b++) {
+      matrix[a][b] = 0;
+    }
+  }
+  for (int a = 0; a < 12; a++) {
+    char letra = mensaje[a];
+    setArr(x, letra);
+    x += 6;
+  }
+}
+
+void imprimirMorse(int x, const unsigned char morse[5]) {
+  for (int i = 0; i < 5; i++) {
+    if (morse[i] == 0){
+      mostrarVertical(x, dot);
+      SonarPunto();
+    }
+
+    else if (morse[i] == 1){
+      mostrarVertical(x, dash);
+      SonarBarra();
+    }
+    else
+      break;
+  }
+}
+
+void SonarPunto(){
+tone(pin, frecuencia); //activa un tono de frecuencia determinada en un pin dado
+delay(10);
+noTone(pin);
+}
+void SonarBarra(){
+  tone(pin, frecuencia); //activa un tono de frecuencia determinada en un pin dado
+  delay(75);
+  noTone(pin);
 }
 
 void setup() {
@@ -380,7 +360,7 @@ void Modo2(String cadena){
     setMorse(10, (char)cadena[a]);
   }
 }
-void Modo1(String texto){
+void Modo1(){
   auxmovLetrero++;
   if (auxmovLetrero >= movLetrero) {
     auxmovLetrero = 0;
@@ -394,20 +374,8 @@ void Modo1(String texto){
       for (int a = 0; a < 8; a++) {
         lc.setLed(0 , b, cambiar(a) , matrix[b][a]); // se colocan los pines de la matriz con driver
       }
-
     }
   }
 }
 
 //Metodo llamada en la interrupcion para el cambio de modo
-
-void SonarPunto(){
-tone(pin, frecuencia); //activa un tono de frecuencia determinada en un pin dado
-delay(10);
-noTone(pin);
-}
-void SonarBarra(){
-  tone(pin, frecuencia); //activa un tono de frecuencia determinada en un pin dado
-  delay(75);
-  noTone(pin);
-}
