@@ -1,5 +1,7 @@
 //#include "Abecedario.h"
 //Abecedario abc;
+#include <ArduinoJson.h>
+
 #include "LedControl.h"
 LedControl lc = LedControl(12, 11, 10, 1); //se cambian los pines despues :D
 
@@ -174,7 +176,8 @@ volatile unsigned char modo = 1;
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+  Serial1.begin(9600);
+ Serial.begin(115200);
 
   //Activar el boton para el cambio de modos
   attachInterrupt(digitalPinToInterrupt(2), cambiarModo, HIGH);
@@ -245,6 +248,26 @@ void setMorse(int x, char c) {
 void loop() {
   // put your main code here, to run repeatedly:
   //abc.Llenar();
+
+  while(Serial1.available()>0){
+     String data = Serial1.readStringUntil('\n');
+     Serial.println(data);
+     DynamicJsonBuffer jsonBuffer;
+     JsonObject&root=jsonBuffer.parseObject(data);
+     int modo=root[String("modo")];
+     String texto=root[String("texto")];
+     if(modo==1){
+
+     }else if(modo==2){
+
+     }else if(modo==3){
+       
+     }
+
+     //aqui lo mando
+  }
+  delay(100);
+
   if (modo == 1 || true) {
     auxmovLetrero++;
     if (auxmovLetrero >= movLetrero) {
