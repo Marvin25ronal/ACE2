@@ -1,8 +1,14 @@
 //#include "Abecedario.h"
 //Abecedario abc;
+int frecuencia=500;
+int pin=22;
 #include <ArduinoJson.h>
 
 #include "LedControl.h"
+
+//VARIABLE PARA EL MODO, MODO 1 POR DEFECTO
+volatile unsigned char modo = 1;
+
 LedControl lc = LedControl(12, 11, 10, 1); //se cambian los pines despues :D
 
 int cambiar(int x) {
@@ -56,8 +62,20 @@ la[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 1, 
 , n8[6][8] = {{0, 1, 1, 0, 1, 1, 1, 0}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {0, 1, 1, 0, 1, 1, 1, 0}}
 , n9[6][8] = {{0, 1, 1, 0, 0, 0, 1, 0}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {0, 1, 1, 1, 1, 1, 1, 0}}
 
-, dot[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}
-, dash[6][8] = {{0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
+, dot[6][8] = {
+{0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 1, 1, 0, 0, 0},
+{0, 0, 0, 1, 1, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0}}
+, dash[6][8] = {
+{0, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 1, 1, 0, 0, 0},
+{0, 0, 0, 1, 1, 0, 0, 0},
+{0, 0, 0, 1, 1, 0, 0, 0},
+{0, 0, 0, 1, 1, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0}};
 
 const unsigned char
 ma[5] = {0, 1, 2, 2, 2},
@@ -96,7 +114,6 @@ ma[5] = {0, 1, 2, 2, 2},
                                                                                                                                                         m8[5] = {1, 1, 1, 0, 0},
                                                                                                                                                             m9[5] = {1, 1, 1, 1, 0},
                                                                                                                                                                 m0[5] = {1, 1, 1, 1, 1};
-
 
 void prueba(int x , const unsigned char arr[6][8]) {
   for (int a = 0; a < 6; a++) {
@@ -158,10 +175,7 @@ void setArr(int x , char c) {
   }
 }
 
-
-
 void mostrarVertical(int x , const unsigned char arr[6][8]){
-
    int aux1 = 7;
    int aux2 = 1;
    for(int a = 0; a < 8; a++){
@@ -171,16 +185,14 @@ void mostrarVertical(int x , const unsigned char arr[6][8]){
             lc.setLed(0 , c, cambiar(b + aux1) , arr[c][b] );
         }
       }
-      delay(200);
+      delay(x);
       aux1--;
       aux2++;
    }
 }
 
 void setV(int x , char c) {
-  if (x < -6 || 17 < x) {
-    return;
-  }
+
   switch (c) {
     case  'a': mostrarVertical(x , la); break;
     case  'b': mostrarVertical(x , lb); break;
@@ -236,39 +248,25 @@ void setMat(int x) {
   }
 }
 
-//VARIABLE PARA EL MODO, MODO 1 POR DEFECTO
-volatile unsigned char modo = 1;
-
-void setup() {
-  // put your setup code here, to run once:
-  Serial1.begin(9600);
- Serial.begin(115200);
-
-  //Activar el boton para el cambio de modos
-  attachInterrupt(digitalPinToInterrupt(2), cambiarModo, HIGH);
-
-
-  lc.shutdown(0, false);
-  lc.setIntensity(0, 10);
-  lc.clearDisplay(0);
-
-}
-
 void imprimirMorse(int x, const unsigned char morse[5]) {
   for (int i = 0; i < 5; i++) {
-    if (morse[i] == 0)
-      prueba(x, dot);
-    else if (morse[i] == 1)
-      prueba(x, dash);
+    if (morse[i] == 0){
+      mostrarVertical(x, dot);
+      SonarPunto();
+    }
+
+    else if (morse[i] == 1){
+      mostrarVertical(x, dash);
+      SonarBarra();
+    }
+
     else
       break;
   }
 }
 
 void setMorse(int x, char c) {
-  if (x < -6 || 17 < x) {
-    return;
-  }
+
   switch (c) {
     case  'a': imprimirMorse(x , ma); break;
     case  'b': imprimirMorse(x , mb); break;
@@ -310,6 +308,21 @@ void setMorse(int x, char c) {
   }
 }
 
+void setup() {
+  // put your setup code here, to run once:
+  Serial1.begin(9600);
+ Serial.begin(115200);
+
+  //Activar el boton para el cambio de modos
+
+
+
+  lc.shutdown(0, false);
+  lc.setIntensity(0, 10);
+  lc.clearDisplay(0);
+
+}
+
 void loop() {
   // put your main code here, to run repeatedly:
   //abc.Llenar();
@@ -321,9 +334,9 @@ void loop() {
      JsonObject&root=jsonBuffer.parseObject(data);
      int modo=root[String("modo")];
      String texto=root[String("texto")];*/
-      String texto="hola";
+      String texto="hola putos";
       int modo=3;
-      texto=texto.toLowerCase();
+      texto.toLowerCase();
   if (modo == 1) {
     auxmovLetrero++;
     if (auxmovLetrero >= movLetrero) {
@@ -343,14 +356,15 @@ void loop() {
     }
   } else if (modo == 2) {
 
-
+    modo3(0,texto);
 
   } else if(modo == 3){
-    for(int i=0;i<texto.length();i++){
+    /*for(int i=0;i<texto.length();i++){
       Serial.println(texto[i]);
       setV(0,(char)(texto[i]));
 
-    }
+    }*/
+    modo3(0,texto);
    // setV(0 , 'a');
    }
   delay(10);
@@ -365,9 +379,8 @@ void modo3(int x, String cadena) {
     }
   }
   for (int a = 0; a < cadena.length(); a++) {
-    setArr(x, (char)cadena[a]);
-    x += 6;
-    setMorse(x, (char)cadena[a]);
+    setV(200,(char)(cadena[a]));
+    setMorse(75, (char)cadena[a]);
   }
 }
 
@@ -379,9 +392,14 @@ void Modo1(String texto){
 }
 
 //Metodo llamada en la interrupcion para el cambio de modo
-void cambiarModo() {
-  modo++;
-  if (modo > 3)
-    modo = 3;
-    lc.clearDisplay(0);
+
+void SonarPunto(){
+tone(pin, frecuencia); //activa un tono de frecuencia determinada en un pin dado
+delay(10);
+noTone(pin);
+}
+void SonarBarra(){
+  tone(pin, frecuencia); //activa un tono de frecuencia determinada en un pin dado
+  delay(75);
+  noTone(pin);
 }
