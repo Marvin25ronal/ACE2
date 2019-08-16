@@ -1,7 +1,7 @@
 //#include "Abecedario.h"
 //Abecedario abc;
 #include "LedControl.h"
-LedControl lc = LedControl(12,11,10,1); //se cambian los pines despues :D
+LedControl lc = LedControl(12, 11, 10, 1); //se cambian los pines despues :D
 
 int cambiar(int x) {
   return (x - 7) * -1;    //para probar en la vida real
@@ -15,7 +15,7 @@ int movLetrero = 20;
 int auxmovLetrero = 100;
 
 const unsigned char
-  la[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 1, 0, 0, 0}, {1, 0, 0, 0, 1, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0}}
+la[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 1, 0, 0, 0}, {1, 0, 0, 0, 1, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0}}
 , lb[6][8] = {{1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 1, 0, 0, 1}, {0, 1, 1, 1, 0, 1, 1, 0}}
 , lcc [6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 0}}
 , ld[6][8] = {{1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 1}, {1, 1, 0, 0, 0, 0, 1, 1}, {0, 1, 1, 1, 1, 1, 1, 0}}
@@ -56,42 +56,42 @@ const unsigned char
 , dash[6][8] = {{0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
 
 const unsigned char
-  ma[5] = {0, 1, 2, 2, 2},       
-  mb[5] = {1, 0, 0, 0, 2},      
-  mc[5] = {1, 0, 1, 0, 2},    
-  md[5] = {1, 0, 0, 2, 2},     
-  me[5] = {0, 2, 2, 2, 2},         
-  mf[5] = {0, 0, 1, 0, 2}, 
-  mg[5] = {1, 1, 0, 2, 2},    
-  mh[5] = {0, 0, 0, 0, 2},      
-  mi[5] = {0, 0, 2, 2, 2},      
-  mj[5] = {0, 1, 1, 1, 2},   
-  mk[5] = {1, 0, 1, 2, 2},    
-  ml[5] = {0, 1, 0, 0, 2}, 
-  mm[5] = {1, 1, 2, 2, 2},      
-  mn[5] = {1, 0, 2, 2, 2},          
-  mo[5] = {1, 1, 1, 2, 2},    
-  mp[5] = {0, 1, 1, 0, 2},   
-  mq[5] = {1, 1, 0, 1, 2},    
-  mr[5] = {0, 1, 0, 2, 2}, 
-  ms[5] = {0, 0, 0, 2, 2},   
-  mt[5] = {1, 2, 2, 2, 2},          
-  mu[5] = {0, 0, 1, 2, 2},     
-  mv[5] = {0, 0, 0, 1, 2},   
-  mw[5] = {0, 1, 1, 2, 2},    
-  mx[5] = {1, 0, 0, 1, 2}, 
-  my[5] = {1, 0, 1, 1, 2}, 
-  mz[5] = {1, 1, 0, 0, 2},     
-  m1[5] = {0, 1, 1, 1, 1}, 
-  m2[5] = {0, 0, 1, 1, 1}, 
-  m3[5] = {0, 0, 0, 1, 1}, 
-  m4[5] = {0, 0, 0, 0, 1}, 
-  m5[5] = {0, 0, 0, 0, 0},
-  m6[5] = {1, 0, 0, 0, 0},   
-  m7[5] = {1, 1, 0, 0, 0},  
-  m8[5] = {1, 1, 1, 0, 0},  
-  m9[5] = {1, 1, 1, 1, 0},
-  m0[5] = {1, 1, 1, 1, 1};
+ma[5] = {0, 1, 2, 2, 2},
+        mb[5] = {1, 0, 0, 0, 2},
+                mc[5] = {1, 0, 1, 0, 2},
+                        md[5] = {1, 0, 0, 2, 2},
+                                me[5] = {0, 2, 2, 2, 2},
+                                        mf[5] = {0, 0, 1, 0, 2},
+                                            mg[5] = {1, 1, 0, 2, 2},
+                                                mh[5] = {0, 0, 0, 0, 2},
+                                                    mi[5] = {0, 0, 2, 2, 2},
+                                                        mj[5] = {0, 1, 1, 1, 2},
+                                                            mk[5] = {1, 0, 1, 2, 2},
+                                                                ml[5] = {0, 1, 0, 0, 2},
+                                                                    mm[5] = {1, 1, 2, 2, 2},
+                                                                        mn[5] = {1, 0, 2, 2, 2},
+                                                                            mo[5] = {1, 1, 1, 2, 2},
+                                                                                mp[5] = {0, 1, 1, 0, 2},
+                                                                                    mq[5] = {1, 1, 0, 1, 2},
+                                                                                        mr[5] = {0, 1, 0, 2, 2},
+                                                                                            ms[5] = {0, 0, 0, 2, 2},
+                                                                                                mt[5] = {1, 2, 2, 2, 2},
+                                                                                                    mu[5] = {0, 0, 1, 2, 2},
+                                                                                                        mv[5] = {0, 0, 0, 1, 2},
+                                                                                                            mw[5] = {0, 1, 1, 2, 2},
+                                                                                                                mx[5] = {1, 0, 0, 1, 2},
+                                                                                                                    my[5] = {1, 0, 1, 1, 2},
+                                                                                                                        mz[5] = {1, 1, 0, 0, 2},
+                                                                                                                            m1[5] = {0, 1, 1, 1, 1},
+                                                                                                                                m2[5] = {0, 0, 1, 1, 1},
+                                                                                                                                    m3[5] = {0, 0, 0, 1, 1},
+                                                                                                                                        m4[5] = {0, 0, 0, 0, 1},
+                                                                                                                                            m5[5] = {0, 0, 0, 0, 0},
+                                                                                                                                                m6[5] = {1, 0, 0, 0, 0},
+                                                                                                                                                    m7[5] = {1, 1, 0, 0, 0},
+                                                                                                                                                        m8[5] = {1, 1, 1, 0, 0},
+                                                                                                                                                            m9[5] = {1, 1, 1, 1, 0},
+                                                                                                                                                                m0[5] = {1, 1, 1, 1, 1};
 
 void prueba(int x , const unsigned char arr[6][8]) {
   for (int a = 0; a < 6; a++) {
@@ -158,6 +158,11 @@ void setArr(int x , char c) {
 
 //setea cada letra en su lugar
 void setMat(int x) {
+  for (int a = 0; a < 8; a++) {
+    for (int b = 0; b < 8; b++) {
+      matrix[a][b] = 0;
+    }
+  }
   for (int a = 0; a < 12; a++) {
     setArr(x, mensaje[a]);
     x += 6;
@@ -178,21 +183,21 @@ void setup() {
   lc.shutdown(0, false);
   lc.setIntensity(0, 10);
   lc.clearDisplay(0);
-  
+
 }
 
-void imprimirMorse(int x, const unsigned char morse[5]){
-    for(int i = 0; i<5; i++){
-      if(morse[i]==0)
-        prueba(x, dot);
-      else if(morse[i]==1)
-        prueba(x, dash);
-      else 
-        break;
-    }
+void imprimirMorse(int x, const unsigned char morse[5]) {
+  for (int i = 0; i < 5; i++) {
+    if (morse[i] == 0)
+      prueba(x, dot);
+    else if (morse[i] == 1)
+      prueba(x, dash);
+    else
+      break;
+  }
 }
 
-void setMorse(int x, char c){
+void setMorse(int x, char c) {
   if (x < -6 || 17 < x) {
     return;
   }
@@ -234,7 +239,7 @@ void setMorse(int x, char c){
     case  '7': imprimirMorse(x , m7); break;
     case  '8': imprimirMorse(x , m8); break;
     case  '9': imprimirMorse(x , m9); break;
-  }    
+  }
 }
 
 void loop() {
@@ -247,7 +252,7 @@ void loop() {
       setMat(posMat);
       posMat -= 1;
       //n letras de la frase * 6 hola grupo, se cambia si no agarra jaja
-      if (posMat == - 68) { //para que sea circular el retrero
+      if (posMat == - 64) { //para que sea circular el retrero
         posMat = 9;
       }
       for (int b = 0; b < 8; b++) {
