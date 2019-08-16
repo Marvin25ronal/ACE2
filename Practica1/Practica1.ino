@@ -261,7 +261,7 @@ void loop() {
      }else if(modo==2){
 
      }else if(modo==3){
-       
+
      }
 
      //aqui lo mando
@@ -290,6 +290,12 @@ void loop() {
 
   }
   delay(10);
+}
+void Modo2(String texto){
+
+}
+void Modo1(String texto){
+
 }
 
 //Metodo llamada en la interrupcion para el cambio de modo
