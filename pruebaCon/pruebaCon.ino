@@ -60,17 +60,19 @@ void prueba(){
           //se manda al arduino
           NodeMCU.println(payload);
           bool esperar=true;
-         // while(esperar==true){
-            /*while(NodeMCU.available()>0){
-              String mensaje=NodeMCU.readStringUntil('\n');
-              if(mensaje.equals("ya")){
+          while(esperar==true){
+            //Serial.println("esperando1");
+            while(NodeMCU.available()>0){
+              
+              
                 esperar=false;
-                Serial.println("esperando");
+                
                 delay(50);
                 break;
-              }
-            }*/
-         // }
+               
+            }
+            delay(100);
+          }
         }
         Serial.print("ok");
       }

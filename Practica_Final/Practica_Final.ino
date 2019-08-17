@@ -1,4 +1,4 @@
-//#include "Abecedario.h"
+
 //Abecedario abc;
 int frecuencia = 500;
 int pin = 22;
@@ -334,12 +334,12 @@ void imprimirMorse(int x, const unsigned char morse[5]) {
 
 void SonarPunto() {
   tone(pin, frecuencia); //activa un tono de frecuencia determinada en un pin dado
-  delay(10);
+  delay(20);
   noTone(pin);
 }
 void SonarBarra() {
   tone(pin, frecuencia); //activa un tono de frecuencia determinada en un pin dado
-  delay(75);
+  delay(200);
   noTone(pin);
 }
 
@@ -371,12 +371,13 @@ void loop() {
     if (modo == 2){
        Modo2(texto);
        modo=0;
+       
     }
 
     else if (modo == 3) {
       Modo3(0, texto);
       modo=0;
-
+      
     }else if(modo==1){
       break;
     }
@@ -386,6 +387,7 @@ void loop() {
   }
   if (modo == 1) {
     Modo1();
+    
   }
 
 }
@@ -401,10 +403,12 @@ void Modo3(int x, String cadena) {
     setV(200, (char)(cadena[a]));
     setMorse(75, (char)cadena[a]);
   }
+  Serial1.println("ya");
+  Serial.println("ya");
 }
 
 void Modo2(String cadena) {
-  Serial.println(cadena + "dd");
+  
   for (int a = 0; a < 8; a++) {
     for (int b = 0; b < 8; b++) {
       matrix[a][b] = 0;
@@ -413,7 +417,10 @@ void Modo2(String cadena) {
   for (int a = 0; a < cadena.length(); a++) {
     //setV(200,(char)(cadena[a]));
     setMorse(10, (char)cadena[a]);
+    delay(50);
   }
+  Serial1.println("ya");
+  Serial.println("ya");
 }
 void Modo1() {
 
@@ -433,15 +440,17 @@ void Modo1() {
     auxm1 = 0;
     lc.clearDisplay(0);
     modo=0;
+    Serial1.println("ya");
+  Serial.println("ya");
     return;
   }
 
   for (int b = 0; b < 8; b++) {
     for (int a = 0; a < 8; a++) {
       lc.setLed(0 , b, cambiar(a) , matrix[b][a]); // se colocan los pines de la matriz con driver
-
     }
   }
+ 
 
   auxmorse1(auxm1 , auxm2);
   auxm2++;
