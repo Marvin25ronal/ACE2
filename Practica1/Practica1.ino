@@ -11,7 +11,7 @@ int auxm2 = 0;
 int tMorse = 450;
 int eMorse = 0;
 //VARIABLE PARA EL MODO, MODO 1 POR DEFECTO
-volatile unsigned char modo = 1;
+volatile unsigned char modo = 0;
 
 LedControl lc = LedControl(12, 11, 10, 1); //se cambian los pines despues :D
 
@@ -353,40 +353,41 @@ void setup() {
   lc.setIntensity(0, 10);
   lc.clearDisplay(0);
 }
-
 void loop() {
   // put your main code here, to run repeatedly:
   //abc.Llenar();
-
-  while(Serial1.available()>0){
-     String data = Serial1.readStringUntil('\n');
-     Serial.println(data);
-     DynamicJsonBuffer jsonBuffer;
-     JsonObject&root=jsonBuffer.parseObject(data);
-     int modo=root[String("modo")];
-     String texto=root[String("texto")];
-  //String texto = "hola putos";
-  //int modo = 2;
-  texto.toLowerCase();
-  if (modo == 1){
+ 
+  while (Serial1.available() > 0) {
+     posMat = 0;
+    String data = Serial1.readStringUntil('\n');
+    Serial.println(data);
+    DynamicJsonBuffer jsonBuffer;
+    JsonObject&root = jsonBuffer.parseObject(data);
+    modo = root[String("modo")];
+    String texto = root[String("texto")];
+    //String texto = "hola putos";
+    //int modo = 2;
+    texto.toLowerCase();
+    if (modo == 2){
+       Modo2(texto);
+       modo=0;
+    }
+     
+    else if (modo == 3) {
+      Modo3(0, texto);
+      modo=0;
+     
+    }else if(modo==1){
+      break;
+    }
+    delay(10);
+    lc.clearDisplay(0);
     posMat=0;
-    Modo1();
   }
-    
-  else if (modo == 2)
-    Modo2(texto);
-  else if (modo == 3) {
-    /*for(int i=0;i<texto.length();i++){
-      Serial.println(texto[i]);
-      setV(0,(char)(texto[i]));
-
-      }*/
-    Modo3(0, texto);
-    // setV(0 , 'a');
+  if (modo == 1) {
+    Modo1(); 
   }
-  delay(10);
-  lc.clearDisplay(0);
-}
+  
 }
 
 //setea cada letra y morse en su lugar
@@ -415,30 +416,35 @@ void Modo2(String cadena) {
   }
 }
 void Modo1() {
-
+ 
   if (auxm2 == 6) {
     auxm2 = 0;
     auxm1 ++;
     tMorse = 450;
     eMorse = 0;
+    
   }
   setMat(posMat + 7);
   posMat -= 1;
   //n letras de la frase * 6 hola grupo, se cambia si no agarra jaja
-  if (posMat == - 72) { //para que sea circular el retrero
+  if (posMat == - 74) { //para que sea circular el retrero
     posMat = 0;
     auxm2 = 0;
     auxm1 = 0;
+    lc.clearDisplay(0);
+    modo=0;
+    
   }
+  
   for (int b = 0; b < 8; b++) {
     for (int a = 0; a < 8; a++) {
       lc.setLed(0 , b, cambiar(a) , matrix[b][a]); // se colocan los pines de la matriz con driver
+      
     }
   }
 
   auxmorse1(auxm1 , auxm2);
   auxm2++;
-
 }
 
 //Metodo llamada en la interrupcion para el cambio de modo
