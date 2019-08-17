@@ -1,10 +1,15 @@
 //#include "Abecedario.h"
 //Abecedario abc;
-int frecuencia=500;
-int pin=22;
+int frecuencia = 500;
+int pin = 22;
 #include <ArduinoJson.h>
 #include "LedControl.h"
 
+
+int auxm1 = 0;
+int auxm2 = 0;
+int tMorse = 450;
+int eMorse = 0;
 //VARIABLE PARA EL MODO, MODO 1 POR DEFECTO
 volatile unsigned char modo = 1;
 
@@ -60,47 +65,50 @@ la[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 1, 
 , n9[6][8] = {{0, 1, 1, 0, 0, 0, 1, 0}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {1, 0, 0, 1, 0, 0, 0, 1}, {0, 1, 1, 1, 1, 1, 1, 0}}
 
 , dot[6][8] =  {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}
-, dash[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0},{ 0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
+, dash[6][8] = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, { 0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
 
 const unsigned char
 ma[5] = {0, 1, 2, 2, 2},
-mb[5] = {1, 0, 0, 0, 2},
-mc[5] = {1, 0, 1, 0, 2},
-md[5] = {1, 0, 0, 2, 2},
-me[5] = {0, 2, 2, 2, 2},
-mf[5] = {0, 0, 1, 0, 2},
-mg[5] = {1, 1, 0, 2, 2},
-mh[5] = {0, 0, 0, 0, 2},
-mi[5] = {0, 0, 2, 2, 2},
-mj[5] = {0, 1, 1, 1, 2},
-mk[5] = {1, 0, 1, 2, 2},
-ml[5] = {0, 1, 0, 0, 2},
-mm[5] = {1, 1, 2, 2, 2},
-mn[5] = {1, 0, 2, 2, 2},
-mo[5] = {1, 1, 1, 2, 2},
-mp[5] = {0, 1, 1, 0, 2},
-mq[5] = {1, 1, 0, 1, 2},
-mr[5] = {0, 1, 0, 2, 2},
-ms[5] = {0, 0, 0, 2, 2},
-mt[5] = {1, 2, 2, 2, 2},
-mu[5] = {0, 0, 1, 2, 2},
-mv[5] = {0, 0, 0, 1, 2},
-mw[5] = {0, 1, 1, 2, 2},
-mx[5] = {1, 0, 0, 1, 2},
-my[5] = {1, 0, 1, 1, 2},
-mz[5] = {1, 1, 0, 0, 2},
-m1[5] = {0, 1, 1, 1, 1},
-m2[5] = {0, 0, 1, 1, 1},
-m3[5] = {0, 0, 0, 1, 1},
-m4[5] = {0, 0, 0, 0, 1},
-m5[5] = {0, 0, 0, 0, 0},
-m6[5] = {1, 0, 0, 0, 0},
-m7[5] = {1, 1, 0, 0, 0},
-m8[5] = {1, 1, 1, 0, 0},
-m9[5] = {1, 1, 1, 1, 0},
-m0[5] = {1, 1, 1, 1, 1};
+        mb[5] = {1, 0, 0, 0, 2},
+                mc[5] = {1, 0, 1, 0, 2},
+                        md[5] = {1, 0, 0, 2, 2},
+                                me[5] = {0, 2, 2, 2, 2},
+                                        mf[5] = {0, 0, 1, 0, 2},
+                                            mg[5] = {1, 1, 0, 2, 2},
+                                                mh[5] = {0, 0, 0, 0, 2},
+                                                    mi[5] = {0, 0, 2, 2, 2},
+                                                        mj[5] = {0, 1, 1, 1, 2},
+                                                            mk[5] = {1, 0, 1, 2, 2},
+                                                                ml[5] = {0, 1, 0, 0, 2},
+                                                                    mm[5] = {1, 1, 2, 2, 2},
+                                                                        mn[5] = {1, 0, 2, 2, 2},
+                                                                            mo[5] = {1, 1, 1, 2, 2},
+                                                                                mp[5] = {0, 1, 1, 0, 2},
+                                                                                    mq[5] = {1, 1, 0, 1, 2},
+                                                                                        mr[5] = {0, 1, 0, 2, 2},
+                                                                                            ms[5] = {0, 0, 0, 2, 2},
+                                                                                                mt[5] = {1, 2, 2, 2, 2},
+                                                                                                    mu[5] = {0, 0, 1, 2, 2},
+                                                                                                        mv[5] = {0, 0, 0, 1, 2},
+                                                                                                            mw[5] = {0, 1, 1, 2, 2},
+                                                                                                                mx[5] = {1, 0, 0, 1, 2},
+                                                                                                                    my[5] = {1, 0, 1, 1, 2},
+                                                                                                                        mz[5] = {1, 1, 0, 0, 2},
+                                                                                                                            m1[5] = {0, 1, 1, 1, 1},
+                                                                                                                                m2[5] = {0, 0, 1, 1, 1},
+                                                                                                                                    m3[5] = {0, 0, 0, 1, 1},
+                                                                                                                                        m4[5] = {0, 0, 0, 0, 1},
+                                                                                                                                            m5[5] = {0, 0, 0, 0, 0},
+                                                                                                                                                m6[5] = {1, 0, 0, 0, 0},
+                                                                                                                                                    m7[5] = {1, 1, 0, 0, 0},
+                                                                                                                                                        m8[5] = {1, 1, 1, 0, 0},
+                                                                                                                                                            m9[5] = {1, 1, 1, 1, 0},
+                                                                                                                                                                m0[5] = {1, 1, 1, 1, 1};
 
 int contMorse = 0;
+
+
+
 
 void prueba(int x , const unsigned char arr[6][8]) {
   for (int a = 0; a < 6; a++) {
@@ -116,20 +124,53 @@ void prueba(int x , const unsigned char arr[6][8]) {
   }
 }
 
-void mostrarVertical(int x , const unsigned char arr[6][8]){
-   int aux1 = 7;
-   int aux2 = 1;
-   for(int a = 0; a < 8; a++){
-      lc.clearDisplay(0);
-      for(int b = 0; b < aux2; b++){
-        for(int c = 0; c < 6; c++){
-            lc.setLed(0 , c, cambiar(b + aux1) , arr[c][b] );
-        }
+void auxmorse2(int x, const unsigned char morse[5]) {
+  if (x == 5) {
+    delay(100);
+  }
+  if (morse[x] == 0) {
+    SonarPunto();
+    delay(90);
+  } else if (morse[x] == 1) {
+    SonarBarra();
+    delay(25);
+  }else{
+    delay(100);
+    }
+}
+
+void auxmorse1(int n , int p) {
+  switch (n) {
+    case  0:  auxmorse2(p , mh); break;
+    case  1:  auxmorse2(p , mo); break;
+    case  2:  auxmorse2(p , ml); break;
+    case  3:  auxmorse2(p , ma); break;
+    case  4:  auxmorse2(p , mg); break;
+    case  5:  auxmorse2(p , mr); break;
+    case  6:  auxmorse2(p , mu); break;
+    case  7:  auxmorse2(p , mp); break;
+    case  8:  auxmorse2(p , mo); break;
+    case  9:  auxmorse2(p , m1); break;
+    case  10:  auxmorse2(p , m5); break;
+    default: delay(100); break;
+  }
+}
+
+
+void mostrarVertical(int x , const unsigned char arr[6][8]) {
+  int aux1 = 7;
+  int aux2 = 1;
+  for (int a = 0; a < 8; a++) {
+    lc.clearDisplay(0);
+    for (int b = 0; b < aux2; b++) {
+      for (int c = 0; c < 6; c++) {
+        lc.setLed(0 , c, cambiar(b + aux1) , arr[c][b] );
       }
-      delay(x);
-      aux1--;
-      aux2++;
-   }
+    }
+    delay(x);
+    aux1--;
+    aux2++;
+  }
 }
 
 void setArr(int x , char c) {
@@ -277,12 +318,12 @@ void setMat(int x) {
 
 void imprimirMorse(int x, const unsigned char morse[5]) {
   for (int i = 0; i < 5; i++) {
-    if (morse[i] == 0){
+    if (morse[i] == 0) {
       mostrarVertical(x, dot);
       SonarPunto();
     }
 
-    else if (morse[i] == 1){
+    else if (morse[i] == 1) {
       mostrarVertical(x, dash);
       SonarBarra();
     }
@@ -291,12 +332,12 @@ void imprimirMorse(int x, const unsigned char morse[5]) {
   }
 }
 
-void SonarPunto(){
-tone(pin, frecuencia); //activa un tono de frecuencia determinada en un pin dado
-delay(10);
-noTone(pin);
+void SonarPunto() {
+  tone(pin, frecuencia); //activa un tono de frecuencia determinada en un pin dado
+  delay(10);
+  noTone(pin);
 }
-void SonarBarra(){
+void SonarBarra() {
   tone(pin, frecuencia); //activa un tono de frecuencia determinada en un pin dado
   delay(75);
   noTone(pin);
@@ -305,7 +346,7 @@ void SonarBarra(){
 void setup() {
   // put your setup code here, to run once:
   Serial1.begin(9600);
- Serial.begin(115200);
+  Serial.begin(115200);
 
   //Activar el boton para el cambio de modos
   lc.shutdown(0, false);
@@ -324,22 +365,22 @@ void loop() {
      JsonObject&root=jsonBuffer.parseObject(data);
      int modo=root[String("modo")];
      String texto=root[String("texto")];*/
-      String texto="hola putos";
-      int modo=1;
-      texto.toLowerCase();
+  String texto = "hola nada";
+  int modo = 2;
+  texto.toLowerCase();
   if (modo == 1)
     Modo1();
   else if (modo == 2)
     Modo2(texto);
-  else if(modo == 3){
+  else if (modo == 3) {
     /*for(int i=0;i<texto.length();i++){
       Serial.println(texto[i]);
       setV(0,(char)(texto[i]));
 
-    }*/
-    Modo3(0,texto);
-   // setV(0 , 'a');
-   }
+      }*/
+    Modo3(0, texto);
+    // setV(0 , 'a');
+  }
   delay(10);
 
 }
@@ -352,13 +393,13 @@ void Modo3(int x, String cadena) {
     }
   }
   for (int a = 0; a < cadena.length(); a++) {
-    setV(200,(char)(cadena[a]));
+    setV(200, (char)(cadena[a]));
     setMorse(75, (char)cadena[a]);
   }
 }
 
-void Modo2(String cadena){
-  Serial.println(cadena+"dd");
+void Modo2(String cadena) {
+  Serial.println(cadena + "dd");
   for (int a = 0; a < 8; a++) {
     for (int b = 0; b < 8; b++) {
       matrix[a][b] = 0;
@@ -369,22 +410,31 @@ void Modo2(String cadena){
     setMorse(10, (char)cadena[a]);
   }
 }
-void Modo1(){
-  auxmovLetrero++;
-  if (auxmovLetrero >= movLetrero) {
-    auxmovLetrero = 0;
-    setMat(posMat);
-    posMat -= 1;
-    //n letras de la frase * 6 hola grupo, se cambia si no agarra jaja
-    if (posMat == - 64) { //para que sea circular el retrero
-      posMat = 9;
-    }
-    for (int b = 0; b < 8; b++) {
-      for (int a = 0; a < 8; a++) {
-        lc.setLed(0 , b, cambiar(a) , matrix[b][a]); // se colocan los pines de la matriz con driver
-      }
+void Modo1() {
+
+  if (auxm2 == 6) {
+    auxm2 = 0;
+    auxm1 ++;
+    tMorse = 450;
+    eMorse = 0;
+  }
+  setMat(posMat + 7);
+  posMat -= 1;
+  //n letras de la frase * 6 hola grupo, se cambia si no agarra jaja
+  if (posMat == - 72) { //para que sea circular el retrero
+    posMat = 0;
+    auxm2 = 0;
+    auxm1 = 0;
+  }
+  for (int b = 0; b < 8; b++) {
+    for (int a = 0; a < 8; a++) {
+      lc.setLed(0 , b, cambiar(a) , matrix[b][a]); // se colocan los pines de la matriz con driver
     }
   }
+
+  auxmorse1(auxm1 , auxm2);
+  auxm2++;
+
 }
 
 //Metodo llamada en la interrupcion para el cambio de modo
