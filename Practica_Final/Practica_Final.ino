@@ -441,7 +441,7 @@ void Modo1() {
     lc.clearDisplay(0);
     modo=0;
     Serial1.println("ya");
-  Serial.println("ya");
+    Serial.println("ya");
     return;
   }
 

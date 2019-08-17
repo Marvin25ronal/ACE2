@@ -61,15 +61,17 @@ void prueba(){
           NodeMCU.println(payload);
           bool esperar=true;
           while(esperar==true){
-            //Serial.println("esperando1");
+            
             while(NodeMCU.available()>0){
               
-              
+              String mensaje=NodeMCU.readStringUntil('\n');
+              Serial.println(mensaje);
+              if(((char)mensaje[0])=='y'){
                 esperar=false;
                 
                 delay(50);
                 break;
-               
+              }
             }
             delay(100);
           }
