@@ -356,7 +356,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   //abc.Llenar();
- 
+
   while (Serial1.available() > 0) {
      posMat = 0;
     String data = Serial1.readStringUntil('\n');
@@ -372,11 +372,11 @@ void loop() {
        Modo2(texto);
        modo=0;
     }
-     
+
     else if (modo == 3) {
       Modo3(0, texto);
       modo=0;
-     
+
     }else if(modo==1){
       break;
     }
@@ -385,9 +385,9 @@ void loop() {
     posMat=0;
   }
   if (modo == 1) {
-    Modo1(); 
+    Modo1();
   }
-  
+
 }
 
 //setea cada letra y morse en su lugar
@@ -416,13 +416,13 @@ void Modo2(String cadena) {
   }
 }
 void Modo1() {
- 
+
   if (auxm2 == 6) {
     auxm2 = 0;
     auxm1 ++;
     tMorse = 450;
     eMorse = 0;
-    
+
   }
   setMat(posMat + 7);
   posMat -= 1;
@@ -433,13 +433,13 @@ void Modo1() {
     auxm1 = 0;
     lc.clearDisplay(0);
     modo=0;
-    
+    return;
   }
-  
+
   for (int b = 0; b < 8; b++) {
     for (int a = 0; a < 8; a++) {
       lc.setLed(0 , b, cambiar(a) , matrix[b][a]); // se colocan los pines de la matriz con driver
-      
+
     }
   }
 
