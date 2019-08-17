@@ -3,7 +3,7 @@
 SoftwareSerial NodeMCU(D2,D3);
 
 #include "ESP8266HTTPClient.h"
-const char* ssid="Familion Martinez";
+const char* ssid="AndroidAP";
 const char* password="Marvin25";
 
 
@@ -56,10 +56,21 @@ void prueba(){
 
         if(payload.length()==0||payload.equals("null")){
           Serial.println("Esta vacia");
-          NodeMCU.println("Esta vacia");
         }else{
           //se manda al arduino
           NodeMCU.println(payload);
+          bool esperar=true;
+         // while(esperar==true){
+            /*while(NodeMCU.available()>0){
+              String mensaje=NodeMCU.readStringUntil('\n');
+              if(mensaje.equals("ya")){
+                esperar=false;
+                Serial.println("esperando");
+                delay(50);
+                break;
+              }
+            }*/
+         // }
         }
         Serial.print("ok");
       }
@@ -70,4 +81,5 @@ void prueba(){
   }else {
     Serial.print("Error al enviar");
   }
+  delay(10);
 }

@@ -357,16 +357,16 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   //abc.Llenar();
-
-  /*while(Serial1.available()>0){
+  posMat=0;
+  while(Serial1.available()>0){
      String data = Serial1.readStringUntil('\n');
      Serial.println(data);
      DynamicJsonBuffer jsonBuffer;
      JsonObject&root=jsonBuffer.parseObject(data);
      int modo=root[String("modo")];
-     String texto=root[String("texto")];*/
-  String texto = "hola nada";
-  int modo = 2;
+     String texto=root[String("texto")];
+  //String texto = "hola putos";
+  //int modo = 2;
   texto.toLowerCase();
   if (modo == 1)
     Modo1();
@@ -382,7 +382,8 @@ void loop() {
     // setV(0 , 'a');
   }
   delay(10);
-
+  lc.clearDisplay(0);
+}
 }
 
 //setea cada letra y morse en su lugar
