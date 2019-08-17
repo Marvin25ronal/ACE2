@@ -357,7 +357,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   //abc.Llenar();
-  posMat=0;
+
   while(Serial1.available()>0){
      String data = Serial1.readStringUntil('\n');
      Serial.println(data);
@@ -368,8 +368,11 @@ void loop() {
   //String texto = "hola putos";
   //int modo = 2;
   texto.toLowerCase();
-  if (modo == 1)
+  if (modo == 1){
+    posMat=0;
     Modo1();
+  }
+    
   else if (modo == 2)
     Modo2(texto);
   else if (modo == 3) {
