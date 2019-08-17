@@ -276,7 +276,7 @@ void setMorse(int x, char c) {
     case  'l': imprimirMorse(x , ml); break;
     case  'm': imprimirMorse(x , mm); break;
     case  'n': imprimirMorse(x , mn); break;
-    case  'o': imprimirMorse(x , m0); break;
+    case  'o': imprimirMorse(x , mo); break;
     case  'p': imprimirMorse(x , mp); break;
     case  'q': imprimirMorse(x , mq); break;
     case  'r': imprimirMorse(x , mr); break;
