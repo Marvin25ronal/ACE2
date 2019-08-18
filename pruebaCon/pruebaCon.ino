@@ -3,7 +3,7 @@
 SoftwareSerial NodeMCU(D2,D3);
 
 #include "ESP8266HTTPClient.h"
-const char* ssid="AndroidAP";
+const char* ssid="Familion Martinez";
 const char* password="Marvin25";
 
 
