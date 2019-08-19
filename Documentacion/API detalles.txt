@@ -1,0 +1,34 @@
+API
+Base de datos utilizada
+MongoDB
+cluster: Practica1
+base de datos: practica1
+colecciones:
+	-Envio
+	-Historial
+
+
+Métodos
+https://arqui2-prueba2.herokuapp.com/envio
+https://arqui2-prueba2.herokuapp.com/historial
+
+Parámetros(Para los dos son los mismos)
+texto = texto que se envía
+modo = modo en el que se envía 
+
+ejemplo: https://arqui2-prueba2.herokuapp.com/envio?texto=es el envio xd&modo=1
+               https://arqui2-prueba2.herokuapp.com/historial?texto=es el envio xd&modo=1
+
+Al enviar un mensaje, se almacena el texto en las dos colecciones, tanto en Envio como en Historial.
+
+Obtener siguiente mensaje para arduino:
+https://arqui2-prueba2.herokuapp.com/pendiente
+
+Mostrar historial:
+https://arqui2-prueba2.herokuapp.com/all
+
+Borrar historial:
+https://arqui2-prueba2.herokuapp.com/deleteall
+
+
+
